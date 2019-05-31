@@ -25,7 +25,7 @@ namespace Repository
        
         public List<Tag> GetTasksPaginated(RequestGrid request, int userID)
         {
-            return DoPaingation<Tag>(this.context.Tag, request);
+            return DoPaingation<Tag>(this.context.Tag.Where(r => r.UserID == userID), request);
         }
     }
 }

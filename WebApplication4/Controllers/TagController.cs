@@ -55,15 +55,9 @@ namespace WebApplication4.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTagsJson(RequestGrid model)
+        public async Task<IActionResult> GetTagsJson(RequestGrid model)
         {
-
-            var userId = GetUserID();
-
-            var data = service.GetTasksPaginated(model, userId);
-
-
-            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(data);
+            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(await service.GetTasksPaginatedAsync(model, GetUserID()));
             return Ok(ConvertGridViewModel<TagListViewModel>(response.ToArray(), model));
         }
 
