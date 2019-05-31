@@ -1,6 +1,0 @@
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\bin\Debug\netcoreapp2.2\Service.deps.json
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\bin\Debug\netcoreapp2.2\Service.dll
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\obj\Debug\netcoreapp2.2\Service.csprojAssemblyReference.cache
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\obj\Debug\netcoreapp2.2\Service.csproj.CoreCompileInputs.cache
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\obj\Debug\netcoreapp2.2\Service.AssemblyInfoInputs.cache
-C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Service\obj\Debug\netcoreapp2.2\Service.AssemblyInfo.cs
