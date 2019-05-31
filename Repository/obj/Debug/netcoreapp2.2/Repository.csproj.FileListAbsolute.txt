@@ -1,0 +1,7 @@
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\bin\Debug\netcoreapp2.2\Repository.deps.json
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\bin\Debug\netcoreapp2.2\Repository.dll
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\obj\Debug\netcoreapp2.2\Repository.csproj.CoreCompileInputs.cache
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfoInputs.cache
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\obj\Debug\netcoreapp2.2\Repository.AssemblyInfo.cs
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\obj\Debug\netcoreapp2.2\Repository.csprojAssemblyReference.cache
+C:\Users\BSI95053\Documents\Visual Studio 2017\Projects\WebApplication4\Repository\bin\Debug\netcoreapp2.2\Domain.dll
