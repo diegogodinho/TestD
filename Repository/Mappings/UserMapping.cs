@@ -12,7 +12,7 @@ namespace Repository.Mappings
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(r => r.ID);
-            builder.HasKey(r => r.Name);
+            builder.Property(r => r.Name);
             builder.HasMany(r => r.Tags);
         }
     }

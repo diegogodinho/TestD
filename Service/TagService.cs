@@ -1,39 +1,41 @@
 ﻿using Domain.Contracts.Repository;
 using Domain.Contracts.Service;
 using Domain.Entities;
+using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Service
-{
-    public class TagService : ITagService
+{    
+    public class TagService : Service<Tag>, ITagService
     {
         private readonly ITagRepository repository;
 
-        public TagService(ITagRepository repository)
+        public TagService(ITagRepository repository) : base(repository)
         {
             this.repository = repository;
         }
 
-        public void Delete(Tag tag)
+        public Task<List<Tag>> GetTasks(int userID)
         {
-            repository.Delete(tag);
+            return this.repository.GetTasks(userID);
         }
 
-        public Task<List<Tag>> GetAllAsync(int userID)
+        public Task<List<Tag>> GetTasksPaginatedAsync(RequestGrid request, int userID)
         {
-            return repository.GetAllAsync(userID);
+            return this.repository.GetTasksPaginatedAsync(request, userID);
         }
 
-        public Task<Tag> GetByIDAsync(int tagID)
+        public List<Tag> GetTasksPaginated(RequestGrid request, int userID)
         {
-            return repository.GetByIDAsync(tagID);
+            return this.repository.GetTasksPaginated(request, userID);
         }
 
-        public Task SaveAsync(Tag tag)
+        public void SaveTag(Tag newTag)
         {
-            return repository.SaveAsync(tag);
+            //Business Rules Would take place here!
+            this.repository.Add(newTag);
         }
     }
 }

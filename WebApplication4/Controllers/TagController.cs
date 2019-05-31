@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain.Contracts.Repository;
+using Domain.Contracts.Service;
+using Domain.Entities;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Models;
 
 namespace WebApplication4.Controllers
 {
     [Authorize]
-    public class TagController : Controller
+    public class TagController : BaseController
     {
-        private readonly ITagRepository repository;
+        private readonly ITagService service;
+        private readonly IMapper mapper;
 
-        public TagController(ITagRepository repository)
+        public TagController(ITagService service, IMapper mapper, IHttpContextAccessor accessor) : base(accessor)
         {
-            this.repository = repository;
+            this.service = service;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -36,37 +42,36 @@ namespace WebApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View();
-
+                var entity = mapper.Map<Tag>(model);
+                var userId = GetUserID();
+                entity.UserID = userId;
+                service.SaveTag(entity);
+                return View("Index");
             }
             else
             {
-                return View();
+                return View(model);
             }
         }
+
         [HttpGet]
         public IActionResult GetTagsJson(RequestGrid model)
         {
-            List<TagModel> response = new List<TagModel>() {
-                new TagModel
-                {
-                    Id = 1,
-                    Name = "Tag 1"
-                },
-                new TagModel
-                {
-                    Id = 2,
-                    Name = "Tag 2"
-                },
-                new TagModel
-                {
-                    Id = 3,
-                    Name = "Tag 3"
-                }
-            };
+
+            var userId = GetUserID();
+
+            var data = service.GetTasksPaginated(model, userId);
 
 
-            return Ok(new { data = response });
+            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(data);
+            return Ok(ConvertGridViewModel<TagListViewModel>(response.ToArray(), model));
+        }
+
+        [HttpPost]
+        public IActionResult UpdateTag(int idTag)
+        {
+            return null;
+            
         }
     }
 }

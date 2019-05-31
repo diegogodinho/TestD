@@ -9,6 +9,6 @@ namespace Domain.Entities
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

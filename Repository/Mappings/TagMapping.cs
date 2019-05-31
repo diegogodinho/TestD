@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory.ValueGeneration.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,9 @@ namespace Repository.Mappings
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
             builder.HasKey(r => r.ID);
-            builder.HasKey(r => r.Name);
-            builder.HasKey(r => r.UserID);
+            builder.Property(r => r.ID).HasValueGenerator<InMemoryIntegerValueGenerator<int>>();
+            builder.Property(r => r.Name);
+            builder.Property(r => r.UserID);
             builder.HasOne(r => r.User);
         }
     }

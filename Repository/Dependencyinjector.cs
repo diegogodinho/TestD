@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Microsoft.Extensions.Configuration
 {
-    public static class Dependencyinjection
+    public static class Dependencyinjector
     {
         public static void InjectDependenciesRepository(this IServiceCollection services)
         {

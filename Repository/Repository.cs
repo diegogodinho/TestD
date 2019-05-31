@@ -1,6 +1,7 @@
 ﻿using Domain.Contracts.Repository;
 using Domain.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Repository
         {
             context.Remove(entity);
             context.SaveChanges();
-        }        
+        }
 
         public Task SaveAsync(T entity)
         {
@@ -43,7 +44,17 @@ namespace Repository
         }
 
 
-        protected Task<List<T1>> DoPaingation<T1>(IQueryable<T1> query, RequestGrid request)
+        protected Task<List<T1>> DoPaingationAsync<T1>(IQueryable<T1> query, RequestGrid request)
+        {
+            return _DoPaingation<T1>(query, request).ToListAsync();
+        }
+
+        protected List<T1> DoPaingation<T1>(IQueryable<T1> query, RequestGrid request)
+        {
+            return _DoPaingation<T1>(query, request).ToList();
+        }
+
+        private IQueryable<T1> _DoPaingation<T1>(IQueryable<T1> query, RequestGrid request)
         {
             if (request == null)
             {
@@ -52,15 +63,22 @@ namespace Repository
                     Length = 10,
                     Start = 0
                 };
-            }
-            if (request.Start == 0)
-                request.Start = 1;
+            }            
             if (request.Length <= 0)
                 request.Length = 10;
 
+            request.Total = query.Count();
 
-            return query.Skip(request.Start).Take(request.Length).ToListAsync();
+            request.Currentpage = (int)Math.Ceiling(request.Total / (double)request.Length);
 
+            return query.Skip(request.Start).Take(request.Length);
+        }
+
+        public T Add(T entity)
+        {            
+            EntityEntry<T> response = context.Add(entity);
+            context.SaveChanges();
+            return response.Entity;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Domain.Contracts.Repository
     public interface ITagRepository : IRepository<Tag>
     {
         Task<List<Tag>> GetTasks(int userID);
-        Task<List<Tag>> GetTasksPaginated(RequestGrid request, int userID);
+        Task<List<Tag>> GetTasksPaginatedAsync(RequestGrid request, int userID);
+        List<Tag> GetTasksPaginated(RequestGrid request, int userID);
     }
 }

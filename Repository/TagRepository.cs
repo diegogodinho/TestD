@@ -18,9 +18,14 @@ namespace Repository
             return this.context.Tag.Where(r => r.UserID == userID).ToListAsync();
         }
 
-        public Task<List<Tag>> GetTasksPaginated(RequestGrid request, int userID)
+        public Task<List<Tag>> GetTasksPaginatedAsync(RequestGrid request, int userID)
         {
-            return DoPaingation<Tag>(this.context.Tag.Where(r => r.UserID == userID), request);
+            return DoPaingationAsync<Tag>(this.context.Tag.Where(r => r.UserID == userID), request);
+        }
+       
+        public List<Tag> GetTasksPaginated(RequestGrid request, int userID)
+        {
+            return DoPaingation<Tag>(this.context.Tag, request);
         }
     }
 }

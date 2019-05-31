@@ -54,6 +54,7 @@ namespace WebApplication4
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.InjectDependenciesService();
             services.InjectDependenciesRepository();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

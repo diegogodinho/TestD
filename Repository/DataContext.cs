@@ -18,9 +18,8 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfiguration(new UserMapping());
-            modelBuilder.ApplyConfiguration(new TagMapping());
+            modelBuilder.ApplyConfiguration(new TagMapping());            
         }
     }
 }

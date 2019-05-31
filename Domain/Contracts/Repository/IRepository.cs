@@ -11,5 +11,6 @@ namespace Domain.Contracts.Repository
         Task SaveAsync(T entity);
         Task<T> GetByIDAsync(int id);
         void Delete(T entity);
+        T Add(T entity);
     }
 }

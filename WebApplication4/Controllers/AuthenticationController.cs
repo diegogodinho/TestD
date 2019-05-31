@@ -33,6 +33,7 @@ namespace WebApplication4.Controllers
                     {
                         new Claim("Email", "User Email"),
                         new Claim("FullName", model.User),
+                        new Claim("UserID", 1.ToString()),
                         new Claim(ClaimTypes.Role, "Administrator"),
                     };
 

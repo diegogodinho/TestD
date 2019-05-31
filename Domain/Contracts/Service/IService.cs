@@ -7,9 +7,10 @@ namespace Domain.Contracts.Service
 {
     public interface IService<T> where T : class
     {
-        Task<List<T>> GetAllAsync(int userID);
-        Task SaveAsync(T tag);
-        Task<T> GetByIDAsync(int tagID);
-        void Delete(T tag);
+        Task<List<T>> GetAllAsync();
+        Task SaveAsync(T entity);
+        Task<T> GetByIDAsync(int id);
+        void Delete(T entity);
+        T Add(T entity);
     }
 }

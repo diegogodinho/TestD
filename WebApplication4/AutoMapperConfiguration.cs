@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication4.Models;
 
 namespace WebApplication4
 {
@@ -13,6 +14,7 @@ namespace WebApplication4
         public AutoMapperConfiguration()
         {
             CreateMap<Tag, TagListViewModel>();
-        }              
+            CreateMap<TagModel, Tag>();
+        }
     }
 }
