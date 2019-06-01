@@ -16,12 +16,12 @@ using WebApplication4.Models;
 namespace WebApplication4.Controllers
 {
     [Authorize]
-    public class TagController : BaseController
+    public class TasksController : BaseController
     {
-        private readonly ITagService service;
+        private readonly ITaskService service;
         private readonly IMapper mapper;
 
-        public TagController(ITagService service, IMapper mapper, IHttpContextAccessor accessor) : base(accessor)
+        public TasksController(ITaskService service, IMapper mapper, IHttpContextAccessor accessor) : base(accessor)
         {
             this.service = service;
             this.mapper = mapper;
@@ -42,10 +42,11 @@ namespace WebApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = mapper.Map<Tag>(model);
+                var entity = mapper.Map<Domain.Entities.Tasks>(model);
                 var userId = GetUserID();
                 entity.UserID = userId;
-                service.SaveTag(entity);
+                entity.LastChange = DateTime.Now;
+                service.Add(entity);
                 return View("Index");
             }
             else
@@ -57,15 +58,22 @@ namespace WebApplication4.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTagsJson(RequestGrid model)
         {
-            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(await service.GetTasksPaginatedAsync(model, GetUserID()));
+            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(await service.GetPaginatedAsync(model, GetUserID()));
             return Ok(ConvertGridViewModel<TagListViewModel>(response.ToArray(), model));
         }
 
         [HttpPost]
-        public IActionResult UpdateTag(int idTag)
+        public IActionResult UpdateTask(int idTag)
         {
-            return null;
-            
+            try
+            {
+                service.UpdateStatus(idTag);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

@@ -30,13 +30,13 @@ namespace WebApplication4.Controllers
                 //hardcoded users
                 if (model.User.ToLower() == "user" && model.Password.ToLower() == "123")
                 {
-                    await SetClaims("user", 1);
+                    await SetClaims("User", 1);
                     return RedirectToAction("Index", "home");
                 }
 
                 else if (model.User.ToLower() == "admin" && model.Password.ToLower() == "123")
                 {
-                    await SetClaims("admin", 2);
+                    await SetClaims("Admin", 2);
                     return RedirectToAction("Index", "home");
                 }
                 else
@@ -68,6 +68,13 @@ namespace WebApplication4.Controllers
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

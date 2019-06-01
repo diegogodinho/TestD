@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Repository.Mappings
 {
-    public class TagMapping : IEntityTypeConfiguration<Tag>
+    public class TaskMapping : IEntityTypeConfiguration<Tasks>
     {
-        public void Configure(EntityTypeBuilder<Tag> builder)
+        public void Configure(EntityTypeBuilder<Tasks> builder)
         {
             builder.HasKey(r => r.ID);
             builder.Property(r => r.ID).HasValueGenerator<InMemoryIntegerValueGenerator<int>>();

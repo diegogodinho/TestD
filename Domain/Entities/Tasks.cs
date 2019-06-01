@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Tag
+    public class Tasks
     {
         public int ID { get; set; }
         public string Name { get; set; }

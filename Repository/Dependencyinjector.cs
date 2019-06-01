@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.Configuration
         public static void InjectDependenciesRepository(this IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("TodoList"));
-            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
         }
     }
 }

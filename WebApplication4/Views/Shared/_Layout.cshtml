@@ -13,10 +13,15 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     @RenderSection("Head", required: false)
+    <style>
+        a {
+            cursor: pointer
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -32,18 +37,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tag" asp-action="Index">Tags</a>
-                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index">Task</a>
+                            </li>
+
+                            <li class="nav-item mr-auto">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="LogOut">Log out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item mr-auto">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Auth">Login</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="">
+                <b>Hi&nbsp; @User.FindFirst("FullName").Value</b>
+                <br />
+            </div>
+        }
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()

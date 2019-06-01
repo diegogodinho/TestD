@@ -13,8 +13,8 @@ namespace WebApplication4
     {
         public AutoMapperConfiguration()
         {
-            CreateMap<Tag, TagListViewModel>();
-            CreateMap<TagModel, Tag>();
+            CreateMap<Domain.Entities.Tasks, TagListViewModel>();
+            CreateMap<TagModel, Domain.Entities.Tasks>();
         }
     }
 }

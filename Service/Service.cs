@@ -16,29 +16,34 @@ namespace Service
             this.repositoryBase = repository;
         }
 
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {
             return repositoryBase.Add(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             repositoryBase.Delete(entity);
         }
 
-        public Task<List<T>> GetAllAsync()
+        public virtual Task<List<T>> GetAllAsync()
         {
             return repositoryBase.GetAllAsync();
         }
 
-        public Task<T> GetByIDAsync(int id)
+        public T GetByID(int id)
         {
-            return repositoryBase.GetByIDAsync(id);
+            return repositoryBase.GetByID(id);
         }
 
-        public Task SaveAsync(T entity)
+        public virtual Task<T> GetByIDAsync(int id)
         {
-            return repositoryBase.SaveAsync(entity);
+            return repositoryBase.GetByIDAsync(id);
+        }     
+
+        public virtual void Update(T entity)
+        {
+            repositoryBase.Update(entity);
         }
     }
 }

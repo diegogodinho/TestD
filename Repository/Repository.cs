@@ -13,6 +13,7 @@ namespace Repository
     public abstract class Repository<T> : IRepository<T> where T : class
     {
         protected readonly DataContext context;
+
         private readonly DbSet<T> entitySet;
 
         public Repository(DataContext context)
@@ -35,13 +36,7 @@ namespace Repository
         {
             context.Remove(entity);
             context.SaveChanges();
-        }
-
-        public Task SaveAsync(T entity)
-        {
-            context.Add(entity);
-            return context.SaveChangesAsync();
-        }
+        }     
 
 
         protected Task<List<T1>> DoPaingationAsync<T1>(IQueryable<T1> query, RequestGrid request)
@@ -79,6 +74,17 @@ namespace Repository
             EntityEntry<T> response = context.Add(entity);
             context.SaveChanges();
             return response.Entity;
+        }        
+
+        public void Update(T entity)
+        {
+            entitySet.Update(entity);
+            context.SaveChanges();
+        }
+
+        public T GetByID(int id)
+        {
+            return entitySet.Find(id);
         }
     }
 }

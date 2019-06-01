@@ -9,7 +9,7 @@ namespace Repository
 {
     public class DataContext : DbContext
     {
-        public DbSet<Tag> Tag { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
         public DbSet<User> User { get; set; }
 
         public DataContext(DbContextOptions options) : base(options)
@@ -19,7 +19,7 @@ namespace Repository
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new UserMapping());
-            modelBuilder.ApplyConfiguration(new TagMapping());            
+            modelBuilder.ApplyConfiguration(new TaskMapping());            
         }
     }
 }

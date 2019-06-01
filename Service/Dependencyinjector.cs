@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.Configuration
     {
         public static void InjectDependenciesService(this IServiceCollection services)
         {            
-            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<ITaskService, TaskService>();
         }
     }
 }
