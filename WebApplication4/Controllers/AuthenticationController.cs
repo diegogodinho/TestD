@@ -41,8 +41,8 @@ namespace WebApplication4.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("erros", "User or password invalid");
-                    return View();
+                    ModelState.AddModelError("CustomError", "Invalid User or Password");
+                    return View(model);
                 }
             }
             else

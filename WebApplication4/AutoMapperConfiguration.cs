@@ -13,9 +13,12 @@ namespace WebApplication4
     {
         public AutoMapperConfiguration()
         {
-            CreateMap<Domain.Entities.Tasks, TagListViewModel>();
-            CreateMap<TagModel, Tasks>();
-            CreateMap<Tasks, TagModel>();
+            CreateMap<Tasks, TasksListViewModel>();
+            CreateMap<TaskModel, Tasks>();
+            CreateMap<Tasks, TaskModel>();
+            CreateMap<TaskHistoric, HistoricTaskModel>();
+            CreateMap<Tasks, TaskModelEdit>();
+            CreateMap<TaskModelEdit, Tasks>();
         }
     }
 }

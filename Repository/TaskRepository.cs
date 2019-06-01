@@ -11,21 +11,16 @@ namespace Repository
 {
     public class TaskRepository : Repository<Tasks>, ITaskRepository
     {
-        public TaskRepository(DataContext context) : base(context) { }
-
-        public Task<List<Tasks>> GetTasks(int userID)
-        {
-            return this.context.Tasks.Where(r => r.UserID == userID).ToListAsync();
-        }
+        public TaskRepository(DataContext context) : base(context) { }       
 
         public Task<List<Tasks>> GetTasksPaginatedAsync(RequestGrid request, int userID)
         {
             return DoPaingationAsync(this.context.Tasks.Where(r => r.UserID == userID), request);
-        }
-       
-        public List<Domain.Entities.Tasks> GetTasksPaginated(RequestGrid request, int userID)
+        }        
+
+        public Tasks GetTask(int taskID, int userID)
         {
-            return DoPaingation(this.context.Tasks.Where(r => r.UserID == userID), request);
+            return this.context.Tasks.Include("Historics").Where(r=> r.UserID == userID && r.ID == taskID).FirstOrDefault();
         }
     }
 }

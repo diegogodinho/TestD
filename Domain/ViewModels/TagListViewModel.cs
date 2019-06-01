@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.ViewModels
 {
-    public class TagListViewModel
+    public class TasksListViewModel
     {
         public int ID { get; set; }
         public string Name { get; set; }

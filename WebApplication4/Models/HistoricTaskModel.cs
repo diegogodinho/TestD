@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace WebApplication4.Models
 {
-    public class TaskHistoric
+    public class HistoricTaskModel
     {
-        public int ID { get; set; }
         public string Action { get; set; }
         public string Description { get; set; }
         public DateTime DateCreation { get; set; }
-        public int TaskID { get; set; }
-
-        public Tasks Tasks { get; set; }
     }
 }

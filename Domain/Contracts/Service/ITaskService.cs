@@ -9,9 +9,9 @@ namespace Domain.Contracts.Service
 {
     public interface ITaskService : IService<Tasks>
     {
-        Task<List<Tasks>> Get(int userID);
         Task<List<Tasks>> GetPaginatedAsync(RequestGrid request, int userID);
-        List<Tasks> GetPaginated(RequestGrid request, int userID);
-        void UpdateStatus(int idTag);
+        void UpdateStatus(int idTag, int userID);
+        void Update(Tasks entity, int userID);
+        Tasks Get(int idTag, int userID);
     }
 }

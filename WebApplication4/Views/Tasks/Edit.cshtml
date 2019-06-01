@@ -1,11 +1,28 @@
-﻿@model WebApplication4.Models.TagModel
+﻿@model WebApplication4.Models.TaskModelEdit
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Details Task";
+}
+@section Head{
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<link href="https://codeseven.github.io/toastr/build/toastr.min.css" rel="stylesheet" />
+
+
+    @*<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet" />*@
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<style>
+    .sorting, .sorting_asc, .sorting_desc {
+        background: none !important;
+    }
+</style>
+
+
+
 }
 
-<br />
-<h1><b>Task:</b> @Model.Name</h1>
+<h1>Details Task: @Model.Name</h1>
 
 <hr />
 <div class="row">
@@ -13,18 +30,62 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(r => r.Id)
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" cols="200"></textarea>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-info">Cancel</a>
+                <input type="submit" value="submit" class="btn btn-success" />
+            </div>
         </form>
     </div>
 </div>
+<br />
+<br />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Edit">
-            <textarea cols="100" rows="5"></textarea>
-        </form>
-    </div>
-    <div class="col-md-12">
-        <a asp-action="Index" class="btn btn-info" >Cancel</a>
-        <input type="submit" value="Save New Historic" class="btn btn-success" />
+        <h4>Historic Changes Task</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="box box-color box-bordered">
+                    <div class="box-content nopadding">
+
+                        <table class="table table-striped table-bordered" id="tableHistoric" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    <th>Action</th>
+                                    <th>Description</th>
+                                    <th>Date and Time Occured</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Historics)
+                                {
+                                <tr>
+                                    <td>
+                                        @item.Action
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @item.DateCreation
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -32,4 +93,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    $(function () {
+        $('#tableHistoric').dataTable();
+    });
+
+
+</script>
 }

@@ -38,14 +38,12 @@ namespace WebApplication4.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(TagModel model)
+        public IActionResult Create(TaskModel model)
         {
             if (ModelState.IsValid)
             {
-                var entity = mapper.Map<Domain.Entities.Tasks>(model);
-                var userId = GetUserID();
-                entity.UserID = userId;
-                entity.LastChange = DateTime.Now;
+                var entity = mapper.Map<Tasks>(model);                
+                entity.UserID = GetUserID();
                 service.Add(entity);
                 return View("Index");
             }
@@ -59,23 +57,38 @@ namespace WebApplication4.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Tasks taskmodel = service.GetByID(id);            
-            return View(mapper.Map<TagModel>(taskmodel));
+            Tasks taskmodel = service.Get(id, GetUserID());
+            return View(mapper.Map<TaskModelEdit>(taskmodel));
         }
+
+        [HttpPost]
+        public IActionResult Edit(TaskModelEdit model)
+        {
+            if (ModelState.IsValid)
+            {
+                Tasks tasks = mapper.Map<Tasks>(model);
+                service.Update(tasks, GetUserID());
+                return RedirectToAction("Index");
+            }
+            else
+                return View(model);
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> GetTagsJson(RequestGrid model)
         {
-            List<TagListViewModel> response = mapper.Map<List<TagListViewModel>>(await service.GetPaginatedAsync(model, GetUserID()));
-            return Ok(ConvertGridViewModel<TagListViewModel>(response.ToArray(), model));
+            List<TasksListViewModel> response = mapper.Map<List<TasksListViewModel>>(await service.GetPaginatedAsync(model, GetUserID()));
+            return Ok(ConvertGridViewModel<TasksListViewModel>(response.ToArray(), model));
         }
 
         [HttpPost]
-        public IActionResult UpdateTask(int idTag)
+        public IActionResult CheckTask(int idTag)
         {
             try
             {
-                service.UpdateStatus(idTag);
+                service.UpdateStatus(idTag, GetUserID());
                 return Ok();
             }
             catch (Exception e)

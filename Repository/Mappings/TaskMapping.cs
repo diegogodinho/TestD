@@ -17,7 +17,7 @@ namespace Repository.Mappings
             builder.Property(r => r.Name);
             builder.Property(r => r.UserID);
             builder.HasOne(r => r.User);
-            builder.HasMany(r => r.Historics);
+            builder.HasMany(r => r.Historics).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

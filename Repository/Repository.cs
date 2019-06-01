@@ -22,12 +22,12 @@ namespace Repository
             entitySet = context.Set<T>();
         }
 
-        public Task<List<T>> GetAllAsync()
+        public virtual Task<List<T>> GetAllAsync()
         {
             return entitySet.ToListAsync();
         }
 
-        public Task<T> GetByIDAsync(int id)
+        public virtual Task<T> GetByIDAsync(int id)
         {
             return entitySet.FindAsync(id);
         }
@@ -37,7 +37,6 @@ namespace Repository
             context.Remove(entity);
             context.SaveChanges();
         }     
-
 
         protected Task<List<T1>> DoPaingationAsync<T1>(IQueryable<T1> query, RequestGrid request)
         {
@@ -69,20 +68,20 @@ namespace Repository
             return query.Skip(request.Start).Take(request.Length);
         }
 
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {            
             EntityEntry<T> response = context.Add(entity);
             context.SaveChanges();
             return response.Entity;
         }        
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             entitySet.Update(entity);
             context.SaveChanges();
         }
 
-        public T GetByID(int id)
+        public virtual T GetByID(int id)
         {
             return entitySet.Find(id);
         }

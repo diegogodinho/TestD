@@ -13,7 +13,7 @@ namespace Repository.Mappings
         {
             builder.HasKey(r => r.ID);
             builder.Property(r => r.Name);
-            builder.HasMany(r => r.Tags);
+            builder.HasMany(r => r.Tasks);
         }
     }
 }
