@@ -4,5 +4,25 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
 </div>
+<p><h3>Instructions for the test: </h3></p>
+<p>There are two logins avaiable:</p>
+<p>Username: <b>user</b> Password:<b>123</b></p>
+<p>Username: <b>admin</b> Password:<b>123</b></p>
+<p> Application Built Using <b>.Net Core 2.2 MVC, BootsTrap 4</b> and <b>Jquery</b></p>
+<p>
+    I could've have used Angular 7 and Core Api for this test, but unfortunately, I didnt't have time enough to implement it.
+    I would have used tokens to authentication instead of cookies
+</p>
+<p>
+    I've used DDD, where my Domain layer is responsible to hold all the business objects, Application Layer is responsible for all the business logic.
+    Repository has the responsability to manage query's and store data on my repository.
+    The Web Layer is responsible for screen validations, objects convertions (Using Automapper).
+    In this case scenario most of the time the Service Layer works as a Wrapper between the Web Layer and The repository.
+</p>
+<p>
+    As you can see all layers have their on dependencies that cannot be shared between them, e.g. Only the repository knows the EntityFrameworkCore DLL.
+    This way we can have a loose coupling between layers, making the App flexible for further changes.
+</p>
+
