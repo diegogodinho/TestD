@@ -32,6 +32,13 @@ namespace WebApplication4.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetTagsJson(RequestGrid model)
+        {
+            List<TasksListViewModel> response = mapper.Map<List<TasksListViewModel>>(await service.GetPaginatedAsync(model, GetUserID()));
+            return Ok(ConvertGridViewModel<TasksListViewModel>(response.ToArray(), model));
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -42,7 +49,7 @@ namespace WebApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = mapper.Map<Tasks>(model);                
+                var entity = mapper.Map<Tasks>(model);
                 entity.UserID = GetUserID();
                 service.Add(entity);
                 return View("Index");
@@ -53,11 +60,12 @@ namespace WebApplication4.Controllers
             }
         }
 
-
         [HttpGet]
         public IActionResult Edit(int id)
         {
             Tasks taskmodel = service.Get(id, GetUserID());
+            if (taskmodel == null)
+                return RedirectToAction("Index");
             return View(mapper.Map<TaskModelEdit>(taskmodel));
         }
 
@@ -74,27 +82,25 @@ namespace WebApplication4.Controllers
                 return View(model);
         }
 
-
-
-        [HttpGet]
-        public async Task<IActionResult> GetTagsJson(RequestGrid model)
-        {
-            List<TasksListViewModel> response = mapper.Map<List<TasksListViewModel>>(await service.GetPaginatedAsync(model, GetUserID()));
-            return Ok(ConvertGridViewModel<TasksListViewModel>(response.ToArray(), model));
-        }
-
         [HttpPost]
-        public IActionResult CheckTask(int idTag)
+        public IActionResult CheckTask(int taskID)
         {
             try
             {
-                service.UpdateStatus(idTag, GetUserID());
+                service.UpdateStatus(taskID, GetUserID());
                 return Ok();
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            service.Delete(id, GetUserID());
+            return Ok();
         }
     }
 }

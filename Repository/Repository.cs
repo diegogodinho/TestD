@@ -20,17 +20,7 @@ namespace Repository
         {
             this.context = context;
             entitySet = context.Set<T>();
-        }
-
-        public virtual Task<List<T>> GetAllAsync()
-        {
-            return entitySet.ToListAsync();
-        }
-
-        public virtual Task<T> GetByIDAsync(int id)
-        {
-            return entitySet.FindAsync(id);
-        }
+        }        
 
         public void Delete(T entity)
         {
@@ -40,16 +30,6 @@ namespace Repository
 
         protected Task<List<T1>> DoPaingationAsync<T1>(IQueryable<T1> query, RequestGrid request)
         {
-            return _DoPaingation<T1>(query, request).ToListAsync();
-        }
-
-        protected List<T1> DoPaingation<T1>(IQueryable<T1> query, RequestGrid request)
-        {
-            return _DoPaingation<T1>(query, request).ToList();
-        }
-
-        private IQueryable<T1> _DoPaingation<T1>(IQueryable<T1> query, RequestGrid request)
-        {
             if (request == null)
             {
                 request = new RequestGrid
@@ -57,7 +37,7 @@ namespace Repository
                     Length = 10,
                     Start = 0
                 };
-            }            
+            }
             if (request.Length <= 0)
                 request.Length = 10;
 
@@ -65,8 +45,8 @@ namespace Repository
 
             request.Currentpage = (int)Math.Ceiling(request.Total / (double)request.Length);
 
-            return query.Skip(request.Start).Take(request.Length);
-        }
+            return query.Skip(request.Start).Take(request.Length).ToListAsync();
+        }                
 
         public virtual T Add(T entity)
         {            
@@ -79,11 +59,6 @@ namespace Repository
         {
             entitySet.Update(entity);
             context.SaveChanges();
-        }
-
-        public virtual T GetByID(int id)
-        {
-            return entitySet.Find(id);
-        }
+        }    
     }
 }

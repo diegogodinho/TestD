@@ -16,7 +16,6 @@
             background: none !important;
         }
     </style>
-
 }
 <br />
 <div class="row">
@@ -50,15 +49,11 @@
         </div>
     </div>
 </div>
-
 @section Scripts{
-
     <script src="/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
     <script src="https://codeseven.github.io/toastr/build/toastr.min.js "></script>
-
-
     <script type="text/javascript">
         var dataTable;
         $(function () {
@@ -84,8 +79,9 @@
                     {
                         "data": "weblink",
                         "render": function (data, type, row, meta) {
-                            var url = '@Url.Action("Edit", "Tasks")';
-                            data = '<a href="#" class="edit" data-id="' + row.id + '" method="post" >Delete</a> | <a href="'+url +'/' +row.id + '" >Details</a>';
+                            var urlEdit = '@Url.Action("Edit", "Tasks")';
+                            var urlDelete = '@Url.Action("Delete", "Tasks")';
+                            data = '<a href="#" data-id="'+row.id + '" class="delete" >Delete</a> | <a href="'+urlEdit +'/' +row.id + '" >Details</a>';
                             return data;
                         },
                         className: 'dt-body-center'
@@ -112,7 +108,24 @@
                         url: '/Tasks/CheckTask',
                         method: 'post',
                         data: {
-                            idTag: $(this).data("id"),
+                            taskID: $(this).data("id"),
+                        },
+                        success: function (data) {                            
+                            dataTable.api().ajax.reload();
+                            toastr.success("Item Updated!");
+                        },
+                        error: function (data) {
+                            toastr.error("Error occured, Please contact the administrator");
+                        }
+                    });
+                });
+                $('.delete').click(function () {
+                    debugger;
+                    $.ajax({
+                        url: '/Tasks/Delete',
+                        method: 'post',
+                        data: {
+                            id: $(this).data("id"),
                         },
                         success: function (data) {                            
                             dataTable.api().ajax.reload();

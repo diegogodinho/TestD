@@ -13,5 +13,6 @@ namespace Domain.Contracts.Service
         void UpdateStatus(int idTag, int userID);
         void Update(Tasks entity, int userID);
         Tasks Get(int idTag, int userID);
+        void Delete(int taskID, int userID);
     }
 }

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 namespace Domain.Contracts.Repository
 {
     public interface IRepository<T> where T : class
-    {
-        Task<List<T>> GetAllAsync();        
-        Task<T> GetByIDAsync(int id);
-        T GetByID(int id);
+    {        
         void Delete(T entity);
         T Add(T entity);        
         void Update(T entity);

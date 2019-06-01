@@ -32,10 +32,10 @@ namespace Service
                 taskAttached.Name, entity.Name, Environment.NewLine, taskAttached.Description, entity.Description),
                 DateCreation = DateTime.Now
             });
-            taskAttached.Name = taskAttached.Name;
-            taskAttached.Description = taskAttached.Description;
+            taskAttached.Name = entity.Name;
+            taskAttached.Description = entity.Description;
 
-            base.Update(taskAttached);
+            repository.Update(taskAttached);
         }
 
         public void UpdateStatus(int taskID, int userID)
@@ -66,9 +66,15 @@ namespace Service
             return base.Add(entity);
         }
 
-        public Tasks Get(int idTag, int userID)
+        public Tasks Get(int taskID, int userID)
         {
-            return repository.GetTask(idTag, userID);
+            return repository.GetTask(taskID, userID);
+        }
+
+        public void Delete(int taskID, int userID)
+        {
+            Tasks task = this.repository.GetTask(taskID, userID);
+            this.repository.Delete(task);
         }
     }
 }
