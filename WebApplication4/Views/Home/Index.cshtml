@@ -14,7 +14,7 @@
     The application uses dependency injection built in on the .Net Core, allowing the Application to have a loose coupling between the layers.
 </p>
 <p>
-    I've used Domain Driven Design as approach.
+    I've used Domain-Driven Design as an approach.
 </p>
 <p>
     The application has 4 Layers.
@@ -26,21 +26,21 @@
     The Domain layer is responsible to hold all the business objects, this layer is known for all other layers.
 </p>
 <p>
-    The Service Layer is responsible for all the business logic/ bussines validation, and call the correct repository to store the information.
+    The Service Layer is responsible for all the business logic/ business validation, and call the correct repository to store the information.
 </p>
 <p>
-    The Repository has the responsibility to manage queries and store data on my repository.
-    I'm using EntityframeworkCore to store the data in memory, Code first approach.  I thought would be easier use Code First approach as I'm storing informartion in memory,    
+    The Repository has the responsibility to manage queries and store data on my repository. I'm using EntityframeworkCore to store the data in memory, Code first approach. 
+    I thought would be easier to use the Code First approach as I'm storing information in memory.
 </p>
 <p>
     In this case scenario, most of the time the Service Layer works as a Wrapper between the Web Layer and The repository.
 </p>
 <p>
-    As you can see all layers have their on dependencies that cannot be shared between them, e.g. Only the repository knows the EntityFrameworkCore DLL.
+    As you can see all layers have their on dependencies that cannot be shared between them, e.g. Only the repository knows the EntityFrameworkCore DLL. 
     This way we can have a loose coupling between layers, making the App flexible for further changes.
 </p>
 <p>
-    I could've have used Angular 7 and Core API for this test, but unfortunately, I didn't have time enough to implement it.
+    I could've have used Angular 7 and Core API for this test, but unfortunately, I didn't have time enough to implement it. 
     I would have used tokens to authentication instead of cookies.
 </p>
 
