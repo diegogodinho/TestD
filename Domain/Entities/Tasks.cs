@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -11,5 +12,7 @@ namespace Domain.Entities
         public int UserID { get; set; }
 
         public virtual User User { get; set; }
+
+        public ICollection<TaskHistoric> Historics { get; set; }
     }
 }

@@ -8,16 +8,15 @@ using System.Text;
 
 namespace Repository.Mappings
 {
-    public class TaskMapping : IEntityTypeConfiguration<Tasks>
+    public class TaskHistoricMapping : IEntityTypeConfiguration<TaskHistoric>
     {
-        public void Configure(EntityTypeBuilder<Tasks> builder)
+        public void Configure(EntityTypeBuilder<TaskHistoric> builder)
         {
             builder.HasKey(r => r.ID);
             builder.Property(r => r.ID).HasValueGenerator<InMemoryIntegerValueGenerator<int>>();
-            builder.Property(r => r.Name);
-            builder.Property(r => r.UserID);
-            builder.HasOne(r => r.User);
-            builder.HasMany(r => r.Historics);
+            builder.Property(r => r.Description);
+            builder.Property(r => r.DateCreation);
+            builder.Property(r => r.TaskID);
         }
     }
 }

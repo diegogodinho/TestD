@@ -1,0 +1,35 @@
+﻿@model WebApplication4.Models.TagModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h1><b>Task:</b> @Model.Name</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(r => r.Id)
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <textarea cols="100" rows="5"></textarea>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <a asp-action="Index" class="btn btn-info" >Cancel</a>
+        <input type="submit" value="Save New Historic" class="btn btn-success" />
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -55,6 +55,14 @@ namespace WebApplication4.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Tasks taskmodel = service.GetByID(id);            
+            return View(mapper.Map<TagModel>(taskmodel));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetTagsJson(RequestGrid model)
         {
